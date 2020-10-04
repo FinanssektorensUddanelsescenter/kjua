@@ -41,7 +41,7 @@ module.exports = {
     mPosY: 50,
 
     // label
-    label: 'no label',
+    label: '',
     fontname: 'sans',
     fontcolor: '#333',
     fontoutline: true,

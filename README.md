@@ -81,13 +81,7 @@ More details can be found on [larsjung.de/kjua](https://larsjung.de/kjua/)
 
 ## Differences to kjua
 
-* possibility to render QR-codes as SVG
-* transparent background support
+* ~~possibility to render QR-codes as SVG~~
 * image can be provided as base64-string
 * Typescript-types
 * draw the image as part of the code --> `imageAsCode`
-
-## Limitations
-
-Some options do not work when the code is rendered as SVG. These are:
-* rounded

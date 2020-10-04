@@ -1,16 +1,16 @@
+const dom = require('./dom');
 const draw_module_rounded = require('./draw_rounded');
 const draw_mode = require('./draw_mode');
-const {create_canvas, canvas_to_img} = require('./dom');
 
 const draw_background = (ctx, settings) => {
-    if (settings.back != null && settings.back !== "") {
+    if (settings.back) {
         ctx.fillStyle = settings.back;
         ctx.fillRect(0, 0, settings.size, settings.size);
     }
 };
 
 const draw_module_default = (qr, ctx, settings, width, row, col) => {
-    if (qr.isDark(row, col)) {
+    if (qr.is_dark(row, col)) {
         ctx.rect(col * width, row * width, width, width);
     }
 };
@@ -21,7 +21,7 @@ const draw_modules = (qr, ctx, settings) => {
     }
 
     const draw_module = settings.rounded > 0 && settings.rounded <= 100 ? draw_module_rounded : draw_module_default;
-    const mod_count = qr.moduleCount;
+    const mod_count = qr.module_count;
 
     let mod_size = settings.size / mod_count;
     let offset = 0;
@@ -42,15 +42,33 @@ const draw_modules = (qr, ctx, settings) => {
     ctx.translate(-offset, -offset);
 };
 
-const draw = (qr, settings) => {
-    const ctx = create_canvas(settings);
+const draw = (qr, ctx, settings) => {
     draw_background(ctx, settings);
     draw_modules(qr, ctx, settings);
     draw_mode(ctx, settings);
-    return settings.render === 'image' ? canvas_to_img(ctx.canvas, settings) : ctx.canvas;
+};
+
+const create_canvas_qrcode = (qr, settings, as_image) => {
+    const ratio = settings.ratio || dom.dpr;
+    const canvas = dom.create_canvas(settings.size, ratio);
+    const context = canvas.getContext('2d');
+
+    if (settings.imageAsCode) {
+        const canvas = dom.create_canvas(settings.size, ratio);
+        const ctx2 = canvas.getContext('2d');
+        draw_modules(qr, ctx2, settings);
+        const imagePos = dom.calc_image_pos(settings);
+        ctx2.globalCompositeOperation = "source-in";
+        ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
+        settings = Object.assign({}, settings, {image: ctx2.canvas});
+    }
+
+    context.scale(ratio, ratio);
+    draw(qr, context, settings);
+    return as_image ? dom.canvas_to_img(canvas) : canvas;
 };
 
 module.exports = {
-    draw,
+    create_canvas_qrcode,
     draw_modules
 };

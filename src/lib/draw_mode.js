@@ -1,17 +1,24 @@
-const {calc_image_pos, calc_label_pos} = require('./dom');
+const {calc_image_pos} = require('./dom');
 
 const draw_label = (ctx, settings) => {
-    const labelPos = calc_label_pos(ctx, settings);
+    const size = settings.size;
+    const font = 'bold ' + settings.mSize * 0.01 * size + 'px ' + settings.fontname;
+
+    ctx.strokeStyle = settings.back;
+    ctx.lineWidth = settings.mSize * 0.01 * size * 0.1;
     ctx.fillStyle = settings.fontcolor;
-    if (settings.fontoutline) {
-        if (!settings.back || settings.back === '') {
-            ctx.strokeStyle = "#ffffff";
-        } else {
-            ctx.strokeStyle = settings.back;
-        }
-        ctx.strokeText(settings.label, labelPos.x, labelPos.y);
-    }
-    ctx.fillText(settings.label, labelPos.x, labelPos.y);
+    ctx.font = font;
+
+    const w = ctx.measureText(settings.label).width;
+    const sh = settings.mSize * 0.01;
+    const sw = w / size;
+    const sl = (1 - sw) * settings.mPosX * 0.01;
+    const st = (1 - sh) * settings.mPosY * 0.01;
+    const x = sl * size;
+    const y = st * size + 0.75 * settings.mSize * 0.01 * size;
+
+    ctx.strokeText(settings.label, x, y);
+    ctx.fillText(settings.label, x, y);
 };
 
 const draw_image = (ctx, settings) => {
