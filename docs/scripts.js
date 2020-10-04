@@ -12,7 +12,10 @@
         ['rounded', '%'],
         ['msize', '%'],
         ['mposx', '%'],
-        ['mposy', '%']
+        ['mposy', '%'],
+        ['msize2', '%'],
+        ['mposx2', '%'],
+        ['mposy2', '%']
     ];
 
     function el_by_id(id) {
@@ -66,6 +69,18 @@
         if (image === "") {
             image = el_by_id('img-buffer');
         }
+        let mode = val_by_id('mode');
+        let mSize = int_by_id('msize');
+        let mPosX = int_by_id('mposx');
+        let mPosY = int_by_id('mposy');
+        if (mode === "labelimage" || mode === "imagelabel") {
+            mSize = [int_by_id('msize'), int_by_id('msize2')];
+            mPosX = [int_by_id('mposx'), int_by_id('mposx2')];
+            mPosY = [int_by_id('mposy'), int_by_id('mposy2')];
+            document.getElementById("pos2").style.display = "";
+        } else {
+            document.getElementById("pos2").style.display = "none";
+        }
 
         var options = {
             render: val_by_id('render'),
@@ -81,11 +96,11 @@
             rounded: int_by_id('rounded'),
             quiet: int_by_id('quiet'),
 
-            mode: val_by_id('mode'),
+            mode,
 
-            mSize: int_by_id('msize'),
-            mPosX: int_by_id('mposx'),
-            mPosY: int_by_id('mposy'),
+            mSize,
+            mPosX,
+            mPosY,
 
             label: val_by_id('label'),
             fontname: val_by_id('font'),

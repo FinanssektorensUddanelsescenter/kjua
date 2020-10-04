@@ -53,6 +53,11 @@ This can reduce the readability of the code!
 ### Image as Code
 <img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/image-as-code.png"/>
 
+### Labelimage and Imagelabel
+Use this, if you want a label AND an image. In these modes `mSize`, `mPosX` and `mPosY` can be provided as an array.
+In mode `labelimage`, the first value (index 0) of the `mSize`, `mPosX` and `mPosY` arrays is used for the label,
+the second value (index 1) is used for image and vice versa. Also in `labelimage` mode, the label is drawn before the 
+image is drawn and therefore kinda "in the background" if the two overlap.
 
 ### All options
 
@@ -66,10 +71,10 @@ This can reduce the readability of the code!
 * `back` background color (defaults to `#fff`, for transparent use `''` or `null`)
 * `rounded` roundend corners in pc: 0..100 (defaults to `0`, not working if `render`is set to `svg`)
 * `quiet` quiet zone in modules (defaults to `0`)
-* `mode` modes: 'plain', 'label' or 'image' (defaults to `plain`, set `label` or `image` property if you change this)
-* `mSize` label/image size in pc: 0..100 (defaults to `30`)
-* `mPosX` label/image pos x in pc: 0..100 (defaults to `50`)
-* `mPosY` label/image pos y in pc: 0..100 (defaults to `50`)
+* `mode` modes: 'plain', 'label', 'image', 'imagelabel' or 'labelimage' (defaults to `plain`, set `label` or `image` property if you change this)
+* `mSize` label/image size in pc: 0..100 (defaults to `30`) or a number-array if `mode` is 'imagelabel' or 'labelimage'
+* `mPosX` label/image pos x in pc: 0..100 (defaults to `50`) or a number-array if `mode` is 'imagelabel' or 'labelimage'
+* `mPosY` label/image pos y in pc: 0..100 (defaults to `50`) or a number-array if `mode` is 'imagelabel' or 'labelimage'
 * `label` additional label text (defaults to ``)
 * `fontname` font for additional label text (defaults to `sans-serif`)
 * `fontcolor` font-color for additional label text (defaults to `#333`)
@@ -83,5 +88,6 @@ More details can be found on [larsjung.de/kjua](https://larsjung.de/kjua/)
 
 * ~~possibility to render QR-codes as SVG~~
 * image can be provided as base64-string
-* Typescript-types
 * draw the image as part of the code --> `imageAsCode`
+* new `modes`: `labelimage` and `imagelabel`
+* Typescript-types

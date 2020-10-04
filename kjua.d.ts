@@ -58,16 +58,16 @@ declare namespace kjua {
         quiet?: number;
 
         /**
-         * modes: 'plain', 'label' or 'image'
+         * modes: 'plain', 'label', 'image', 'imagelabel' or 'labelimage'
          */
-        mode?: 'plain' | 'label' | 'image';
+        mode?: 'plain' | 'label' | 'image' | 'imagelabel' | 'labelimage';
 
         /**
          * label/image size and pos in pc: 0..100
          */
-        mSize?: number;
-        mPosX?: number;
-        mPosY?: number;
+        mSize?: number | [number];
+        mPosX?: number | [number];
+        mPosY?: number | [number];
 
         /**
          * label

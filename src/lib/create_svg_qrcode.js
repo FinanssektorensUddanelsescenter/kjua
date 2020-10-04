@@ -5,9 +5,18 @@ const create_draw_ctx = ctx => {
     const rnd = x => Math.round(x * 10) / 10;
     const rndo = x => Math.round(x * 10) / 10 + ctx.o;
     return {
-        m(x, y) {ctx.p += `M ${rndo(x)} ${rndo(y)} `; return this;},
-        l(x, y) {ctx.p += `L ${rndo(x)} ${rndo(y)} `; return this;},
-        a(x, y, rad) {ctx.p += `A ${rnd(rad)} ${rnd(rad)} 0 0 1 ${rndo(x)} ${rndo(y)} `; return this;}
+        m(x, y) {
+            ctx.p += `M ${rndo(x)} ${rndo(y)} `;
+            return this;
+        },
+        l(x, y) {
+            ctx.p += `L ${rndo(x)} ${rndo(y)} `;
+            return this;
+        },
+        a(x, y, rad) {
+            ctx.p += `A ${rnd(rad)} ${rnd(rad)} 0 0 1 ${rndo(x)} ${rndo(y)} `;
+            return this;
+        }
     };
 };
 
@@ -114,24 +123,41 @@ const create_path = (qr, settings) => {
 };
 
 const add_label = (el, settings) => {
+    let mSize = settings.mSize;
+    let mPosX = settings.mPosX;
+    let mPosY = settings.mPosY;
+    let arrayPos = 0;
+    if (settings.mode === "imagelabel") {
+        arrayPos = 1;
+    }
+    if (Array.isArray(settings.mSize)) {
+        mSize = settings.mSize[arrayPos];
+    }
+    if (Array.isArray(settings.mPosX)) {
+        mPosX = settings.mPosX[arrayPos];
+    }
+    if (Array.isArray(settings.mPosY)) {
+        mPosY = settings.mPosY[arrayPos];
+    }
+
     const size = settings.size;
-    const font = 'bold ' + settings.mSize * 0.01 * size + 'px ' + settings.fontname;
+    const font = 'bold ' + mSize * 0.01 * size + 'px ' + settings.fontname;
 
     const dom = require('./dom');
     const ratio = settings.ratio || dom.dpr;
     const ctx = dom.create_canvas(size, ratio).getContext('2d');
     ctx.strokeStyle = settings.back;
-    ctx.lineWidth = settings.mSize * 0.01 * size * 0.1;
+    ctx.lineWidth = mSize * 0.01 * size * 0.1;
     ctx.fillStyle = settings.fontcolor;
     ctx.font = font;
     const w = ctx.measureText(settings.label).width;
 
-    const sh = settings.mSize * 0.01;
+    const sh = mSize * 0.01;
     const sw = w / size;
-    const sl = (1 - sw) * settings.mPosX * 0.01;
-    const st = (1 - sh) * settings.mPosY * 0.01;
+    const sl = (1 - sw) * mPosX * 0.01;
+    const st = (1 - sh) * mPosY * 0.01;
     const x = sl * size;
-    const y = st * size + 0.75 * settings.mSize * 0.01 * size;
+    const y = st * size + 0.75 * mSize * 0.01 * size;
 
     const text_el = create_svg_el('text', {
         x,
@@ -200,23 +226,28 @@ const create_svg_qrcode = (qr, settings) => {
         fill: settings.fill
     }));
 
-
+    if (settings.imageAsCode) {
+        const ratio = settings.ratio || dpr;
+        const canvas = create_canvas(settings.size, ratio);
+        const ctx2 = canvas.getContext('2d');
+        draw_modules(qr, ctx2, settings);
+        const imagePos = calc_image_pos(settings);
+        ctx2.globalCompositeOperation = "source-in";
+        ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
+        settings = Object.assign({}, settings, {image: ctx2.canvas.toDataURL()});
+    } else {
+        settings = Object.assign({}, settings, {image: get_attr(settings.image, 'src')});
+    }
     if (mode === 'label') {
         add_label(svg_el, settings);
     } else if (mode === 'image') {
-        if (settings.imageAsCode) {
-            const ratio = settings.ratio || dpr;
-            const canvas = create_canvas(settings.size, ratio);
-            const ctx2 = canvas.getContext('2d');
-            draw_modules(qr, ctx2, settings);
-            const imagePos = calc_image_pos(settings);
-            ctx2.globalCompositeOperation = "source-in";
-            ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
-            settings = Object.assign({}, settings, {image: ctx2.canvas.toDataURL()});
-        } else {
-            settings = Object.assign({}, settings, {image: get_attr(settings.image, 'src')});
-        }
         add_image(svg_el, settings);
+    } else if (mode === 'labelimage') {
+        add_label(svg_el, settings);
+        add_image(svg_el, settings);
+    } else if (mode === 'imagelabel') {
+        add_image(svg_el, settings);
+        add_label(svg_el, settings);
     }
 
     return svg_el;

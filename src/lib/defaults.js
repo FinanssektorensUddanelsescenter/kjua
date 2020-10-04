@@ -32,7 +32,7 @@ module.exports = {
     // quiet zone in modules
     quiet: 0,
 
-    // modes: 'plain', 'label' or 'image'
+    // modes: 'plain', 'label', 'image', 'imagelabel' or 'labelimage'
     mode: 'plain',
 
     // label/image size and pos in pc: 0..100
