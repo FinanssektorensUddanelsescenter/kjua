@@ -226,17 +226,19 @@ const create_svg_qrcode = (qr, settings) => {
         fill: settings.fill
     }));
 
-    if (settings.imageAsCode) {
-        const ratio = settings.ratio || dpr;
-        const canvas = create_canvas(settings.size, ratio);
-        const ctx2 = canvas.getContext('2d');
-        draw_modules(qr, ctx2, settings);
-        const imagePos = calc_image_pos(settings);
-        ctx2.globalCompositeOperation = "source-in";
-        ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
-        settings = Object.assign({}, settings, {image: ctx2.canvas.toDataURL()});
-    } else {
-        settings = Object.assign({}, settings, {image: get_attr(settings.image, 'src')});
+    if (settings.image) {
+        if (settings.imageAsCode) {
+            const ratio = settings.ratio || dpr;
+            const canvas = create_canvas(settings.size, ratio);
+            const ctx2 = canvas.getContext('2d');
+            draw_modules(qr, ctx2, settings);
+            const imagePos = calc_image_pos(settings);
+            ctx2.globalCompositeOperation = "source-in";
+            ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
+            settings = Object.assign({}, settings, {image: ctx2.canvas.toDataURL()});
+        } else {
+            settings = Object.assign({}, settings, {image: get_attr(settings.image, 'src')});
+        }
     }
     if (mode === 'label') {
         add_label(svg_el, settings);
