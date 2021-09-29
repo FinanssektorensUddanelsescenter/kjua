@@ -65,7 +65,7 @@ const create_canvas_qrcode = (qr, settings, as_image) => {
 
     context.scale(ratio, ratio);
     draw(qr, context, settings);
-    return as_image ? dom.canvas_to_img(canvas) : canvas;
+    return as_image ? dom.canvas_to_img(canvas, settings.elementId) : canvas;
 };
 
 module.exports = {

@@ -50,5 +50,7 @@ module.exports = {
     image: null,
 
     // draw the image as part of the code
-    imageAsCode: false
+    imageAsCode: false,
+
+    elementId: null
 };

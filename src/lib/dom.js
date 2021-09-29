@@ -25,12 +25,13 @@ const create_canvas = (size, ratio) => {
     return canvas;
 };
 
-const canvas_to_img = canvas => {
+const canvas_to_img = (canvas, elementId) => {
     const img = create_el('img', {
         crossOrigin: 'anonymous',
         src: canvas.toDataURL('image/png'),
         width: get_attr(canvas, 'width'),
-        height: get_attr(canvas, 'height')
+        height: get_attr(canvas, 'height'),
+        id: elementId
     });
     img.style.width = canvas.style.width;
     img.style.height = canvas.style.height;

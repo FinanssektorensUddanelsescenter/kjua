@@ -210,6 +210,10 @@ const create_svg_qrcode = (qr, settings) => {
     });
     svg_el.style.width = `${size}px`;
     svg_el.style.height = `${size}px`;
+    svg_el.setAttribute("title", settings.text);
+    if (!!settings.elementId) {
+        svg_el.setAttribute("id", settings.elementId);
+    }
 
     if (settings.back) {
         svg_el.appendChild(create_svg_el('rect', {

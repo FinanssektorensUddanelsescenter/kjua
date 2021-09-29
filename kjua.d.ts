@@ -86,6 +86,11 @@ declare namespace kjua {
          * draw the image as part of the code
          */
         imageAsCode?: boolean;
+
+        /**
+         * an optional HTML-ID-attribute for the element (works only with render-mode SVG and image)
+         */
+        elementId?: string;
     }
 }
 
