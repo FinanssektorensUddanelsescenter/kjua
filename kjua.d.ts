@@ -65,9 +65,9 @@ declare namespace kjua {
         /**
          * label/image size and pos in pc: 0..100
          */
-        mSize?: number | [number];
-        mPosX?: number | [number];
-        mPosY?: number | [number];
+        mSize?: number | number[];
+        mPosX?: number | number[];
+        mPosY?: number | number[];
 
         /**
          * label
