@@ -59,6 +59,7 @@ image is drawn and therefore kinda "in the background" if the two overlap.
 * `ecLevel` error correction level: 'L', 'M', 'Q' or 'H' (defaults to `L`)
 * `size` size in pixel (defaults to `200`)
 * `fill` code color (defaults to `#333`)
+* `fillSecondary` code color for 'single' dots (defaults to `#777`)
 * `back` background color (defaults to `#fff`, for transparent use `''` or `null`)
 * `rounded` roundend corners in pc: 0..100 (defaults to `0`, not working if `render`is set to `svg`)
 * `quiet` quiet zone in modules (defaults to `0`)

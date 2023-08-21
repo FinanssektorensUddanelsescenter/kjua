@@ -38,6 +38,11 @@ declare namespace kjua {
         fill?: string;
 
         /**
+         * code color
+         */
+        fillSecondary?: string;
+
+        /**
          * background color
          */
         back?: string;

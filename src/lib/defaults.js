@@ -20,6 +20,9 @@ module.exports = {
     // code color
     fill: '#333',
 
+    // code secondary color
+    fillSecondary: '#777',
+
     // background color
     back: '#fff',
 

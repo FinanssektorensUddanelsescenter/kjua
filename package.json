@@ -1,9 +1,9 @@
 {
   "name": "kjua-svg",
-  "version": "1.13.1",
+  "version": "1.13.4",
   "description": "Dynamically generated QR codes for modern browsers.",
-  "homepage": "https://github.com/werthdavid/kjua",
-  "bugs": "https://github.com/werthdavid/kjua/issues",
+  "homepage": "https://github.com/FinanssektorensUddanelsescenter/kjua",
+  "bugs": "https://github.com/FinanssektorensUddanelsescenter/kjua/issues",
   "authors": [
     {
       "name": "Lars Jung",
@@ -12,12 +12,16 @@
     {
       "name": "David Werth",
       "email": "werth.david@gmail.com"
+    },
+    {
+      "name": "Benjamin Falk",
+      "email": "baf@finansudd.dk"
     }
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/werthdavid/kjua.git"
+    "url": "https://github.com/FinanssektorensUddanelsescenter/kjua.git"
   },
   "main": "kjua.min.js",
   "typings": "./kjua.d.ts",

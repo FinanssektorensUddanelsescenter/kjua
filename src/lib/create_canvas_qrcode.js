@@ -9,7 +9,7 @@ const draw_background = (ctx, settings) => {
     }
 };
 
-const draw_module_default = (qr, ctx, settings, width, row, col) => {
+const draw_module_default = (qr, ctx, drawmode, settings, width, row, col, mod_count) => {
     if (qr.is_dark(row, col)) {
         ctx.rect(col * width, row * width, width, width);
     }
@@ -30,11 +30,24 @@ const draw_modules = (qr, ctx, settings) => {
         offset = Math.floor((settings.size - mod_size * mod_count) / 2);
     }
 
+    let drawmode = 'secondary';
     ctx.translate(offset, offset);
     ctx.beginPath();
     for (let row = 0; row < mod_count; row += 1) {
         for (let col = 0; col < mod_count; col += 1) {
-            draw_module(qr, ctx, settings, mod_size, row, col);
+            draw_module(qr, ctx, drawmode, settings, mod_size, row, col);
+        }
+    }
+    ctx.fillStyle = settings.fillSecondary;
+    ctx.fill();
+    ctx.translate(-offset, -offset);
+
+    drawmode = 'primary';
+    ctx.translate(offset, offset);
+    ctx.beginPath();
+    for (let row = 0; row < mod_count; row += 1) {
+        for (let col = 0; col < mod_count; col += 1) {
+            draw_module(qr, ctx, drawmode, settings, mod_size, row, col, mod_count);
         }
     }
     ctx.fillStyle = settings.fill;
@@ -54,11 +67,12 @@ const create_canvas_qrcode = (qr, settings, as_image) => {
     const context = canvas.getContext('2d');
 
     if (settings.imageAsCode) {
+        // eslint-disable-next-line no-shadow
         const canvas = dom.create_canvas(settings.size, ratio);
         const ctx2 = canvas.getContext('2d');
         draw_modules(qr, ctx2, settings);
         const imagePos = dom.calc_image_pos(settings);
-        ctx2.globalCompositeOperation = "source-in";
+        ctx2.globalCompositeOperation = 'source-in';
         ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
         settings = Object.assign({}, settings, {image: ctx2.canvas});
     }
