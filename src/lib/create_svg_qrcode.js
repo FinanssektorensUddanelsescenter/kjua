@@ -127,7 +127,7 @@ const add_label = (el, settings) => {
     let mPosX = settings.mPosX;
     let mPosY = settings.mPosY;
     let arrayPos = 0;
-    if (settings.mode === "imagelabel") {
+    if (settings.mode === 'imagelabel') {
         arrayPos = 1;
     }
     if (Array.isArray(settings.mSize)) {
@@ -210,9 +210,9 @@ const create_svg_qrcode = (qr, settings) => {
     });
     svg_el.style.width = `${size}px`;
     svg_el.style.height = `${size}px`;
-    svg_el.setAttribute("title", settings.text);
-    if (!!settings.elementId) {
-        svg_el.setAttribute("id", settings.elementId);
+    svg_el.setAttribute('title', settings.text);
+    if (settings.elementId) {
+        svg_el.setAttribute('id', settings.elementId);
     }
 
     if (settings.back) {
@@ -237,7 +237,7 @@ const create_svg_qrcode = (qr, settings) => {
             const ctx2 = canvas.getContext('2d');
             draw_modules(qr, ctx2, settings);
             const imagePos = calc_image_pos(settings);
-            ctx2.globalCompositeOperation = "source-in";
+            ctx2.globalCompositeOperation = 'source-in';
             ctx2.drawImage(settings.image, imagePos.x, imagePos.y, imagePos.iw, imagePos.ih);
             settings = Object.assign({}, settings, {image: ctx2.canvas.toDataURL()});
         } else {

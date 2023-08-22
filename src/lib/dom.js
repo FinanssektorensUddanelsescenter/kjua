@@ -38,12 +38,12 @@ const canvas_to_img = (canvas, elementId) => {
     return img;
 };
 
-const calc_image_pos = (settings) => {
+const calc_image_pos = settings => {
     let mSize = settings.mSize;
     let mPosX = settings.mPosX;
     let mPosY = settings.mPosY;
     let arrayPos = 0;
-    if (settings.mode === "labelimage") {
+    if (settings.mode === 'labelimage') {
         arrayPos = 1;
     }
     if (Array.isArray(settings.mSize)) {

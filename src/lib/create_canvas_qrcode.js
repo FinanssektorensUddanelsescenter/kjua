@@ -30,19 +30,7 @@ const draw_modules = (qr, ctx, settings) => {
         offset = Math.floor((settings.size - mod_size * mod_count) / 2);
     }
 
-    let drawmode = 'secondary';
-    ctx.translate(offset, offset);
-    ctx.beginPath();
-    for (let row = 0; row < mod_count; row += 1) {
-        for (let col = 0; col < mod_count; col += 1) {
-            draw_module(qr, ctx, drawmode, settings, mod_size, row, col);
-        }
-    }
-    ctx.fillStyle = settings.fillSecondary;
-    ctx.fill();
-    ctx.translate(-offset, -offset);
-
-    drawmode = 'primary';
+    let drawmode = 'primary';
     ctx.translate(offset, offset);
     ctx.beginPath();
     for (let row = 0; row < mod_count; row += 1) {
@@ -53,6 +41,20 @@ const draw_modules = (qr, ctx, settings) => {
     ctx.fillStyle = settings.fill;
     ctx.fill();
     ctx.translate(-offset, -offset);
+
+    if (settings.fillSecondary !== '') {
+        drawmode = 'secondary';
+        ctx.translate(offset, offset);
+        ctx.beginPath();
+        for (let row = 0; row < mod_count; row += 1) {
+            for (let col = 0; col < mod_count; col += 1) {
+                draw_module(qr, ctx, drawmode, settings, mod_size, row, col, mod_count);
+            }
+        }
+        ctx.fillStyle = settings.fillSecondary;
+        ctx.fill();
+        ctx.translate(-offset, -offset);
+    }
 };
 
 const draw = (qr, ctx, settings) => {

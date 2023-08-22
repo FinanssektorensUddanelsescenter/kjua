@@ -10,7 +10,7 @@ const kjua = options => {
     if (typeof settings.image === 'string') {
         const image = new Image();
         image.src = 'data:image/png;base64,' + settings.image;
-        image.crossOrigin = "anonymous";
+        image.crossOrigin = 'anonymous';
         settings.image = image;
     }
     if (settings.render === 'svg') {

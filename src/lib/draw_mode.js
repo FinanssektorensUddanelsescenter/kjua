@@ -5,7 +5,7 @@ const draw_label = (ctx, settings) => {
     let mPosX = settings.mPosX;
     let mPosY = settings.mPosY;
     let arrayPos = 0;
-    if (settings.mode === "imagelabel") {
+    if (settings.mode === 'imagelabel') {
         arrayPos = 1;
     }
     if (Array.isArray(settings.mSize)) {

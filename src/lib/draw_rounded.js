@@ -78,16 +78,14 @@ const draw_module_rounded = (qr, ctx, drawmode, settings, width, row, col, mod_c
     const dark_s = is_dark(row_s, col);
     const dark_sw = is_dark(row_s, col_w);
     const dark_w = is_dark(row, col_w);
-    const is_secondary = dark_center && !dark_n && !dark_e && !dark_s && !dark_w;
+    const is_secondary = dark_center && ((!dark_n && !dark_e && !dark_s && !dark_w) || (col > 1 && col < 5 && row > 1 && row < 5) || (mod_count - col > 2 && mod_count - col < 6 && row > 1 && row < 5) || (col > 1 && col < 5 && mod_count - row > 2 && mod_count - row < 6));
 
     const draw_ctx = create_draw_ctx(ctx);
-    if (drawmode === 'all' && dark_center) {
+    if (drawmode === 'primary' && dark_center) {
         draw_dark(draw_ctx, left, top, right, bottom, radius, !dark_n && !dark_w, !dark_n && !dark_e, !dark_s && !dark_e, !dark_s && !dark_w);
     } else if (drawmode === 'secondary' && is_secondary) {
         draw_dark(draw_ctx, left, top, right, bottom, radius, !dark_n && !dark_w, !dark_n && !dark_e, !dark_s && !dark_e, !dark_s && !dark_w);
-    } else if (drawmode === 'primary' && dark_center && !is_secondary) {
-        draw_dark(draw_ctx, left, top, right, bottom, radius, !dark_n && !dark_w, !dark_n && !dark_e, !dark_s && !dark_e, !dark_s && !dark_w);
-    } else {
+    } else if (drawmode === 'primary') {
         draw_light(draw_ctx, left, top, right, bottom, radius, dark_n && dark_w && dark_nw, dark_n && dark_e && dark_ne, dark_s && dark_e && dark_se, dark_s && dark_w && dark_sw);
     }
 };
