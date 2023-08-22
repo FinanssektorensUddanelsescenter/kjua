@@ -6,14 +6,6 @@ Dynamically generated QR codes for modern browsers.
 Uses [kjua](https://github.com/lrsjng/kjua) and
 [QR Code Generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT).
 
-If you are looking for a solutions to generate QR Codes with Angular, you can look into [ngx-kjua](https://github.com/werthdavid/ngx-kjua).
-
-# Demo
-
-<img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/demo.png"/>
-
-Click [here](https://werthdavid.github.io/kjua/)
-
 # Usage
 
 ```javascript
@@ -22,33 +14,6 @@ Click [here](https://werthdavid.github.io/kjua/)
 ```
 
 ## Options
-
-### Crisp
-
-As you can set the size of the image, the amount of 'modules' (black/white boxes that make up the QR-code) is calculated based on the size and the amount of `quiet` modules. The calculation can result in an odd number so that a module is e.g. 4.5 pixels big. The resulting image will be drawn fuzzy if `crisp` is set to false. Setting it to `true` will result in 'sharp' lines.
-
-#### crisp false
-<img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/no-crisp.jpg"/>
-
-#### crisp true
-<img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/crisp.jpg"/>
-
-
-### Label
-Kjua lets you embed a text or image to the code. This can be set with the setting `mode`.
-This can reduce the readability of the code!
-
-### Image
-<img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/image.png"/>
-
-### Image as Code
-<img src="https://raw.githubusercontent.com/werthdavid/kjua/master/docs/image-as-code.png"/>
-
-### Labelimage and Imagelabel
-Use this, if you want a label AND an image. In these modes `mSize`, `mPosX` and `mPosY` can be provided as an array.
-In mode `labelimage`, the first value (index 0) of the `mSize`, `mPosX` and `mPosY` arrays is used for the label,
-the second value (index 1) is used for image and vice versa. Also in `labelimage` mode, the label is drawn before the 
-image is drawn and therefore kinda "in the background" if the two overlap.
 
 ### All options
 
@@ -74,7 +39,7 @@ image is drawn and therefore kinda "in the background" if the two overlap.
 * `image` additional image (defaults to `undefined`, use an HTMLImageElement or base64-string)
 * `imageAsCode` draw the image as part of the code (defaults to `false`)
 
-More details can be found on [larsjung.de/kjua](https://larsjung.de/kjua/)
+More details can be found on [larsjung.de/kjua](https://larsjung.de/kjua/) and [werthdavid.github.io/kjua/](https://werthdavid.github.io/kjua/)
 
 ## Differences to https://werthdavid.github.io/kjua/
 
